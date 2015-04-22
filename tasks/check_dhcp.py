@@ -3,7 +3,7 @@ from tasks import base
 
 class DHCPCheckTask(base.NetworkCheckTask):
 
-    def run():
+    def run(self, *args, **kwargs):
         """
         Execute dhcp check on remote server
         """

@@ -7,7 +7,7 @@ import six
 class NetworkCheckTask(object):
 
     @abc.abstractmethod
-    def run():
+    def run(self, *args, **kwargs):
         """
         Execute some staff on remote server
         """

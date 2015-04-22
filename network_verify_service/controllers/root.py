@@ -1,4 +1,5 @@
 from pecan import abort, expose, redirect
+from stevedore import extension
 from webob.exc import status_map
 
 
@@ -6,22 +7,22 @@ class TaskController(object):
 
     @expose(generic=True, template='json')
     def index(self):
-        return {
-            'tasks': [
-                {
-                    'id': '1',
-                    'name': 'check_multicast'
-                },
-                {
-                    'id': '2',
-                    'name': 'check_dhcp'
-                },
-                {
-                    'id': '3',
-                    'name': 'check_connectivity'
-                }
-            ]
-        }
+        """Get all pluggable tasks
+        """
+
+        tasks = []
+        mgr = extension.ExtensionManager(
+            namespace='tasks',
+            invoke_on_load=True
+        )
+
+        for i, ext in enumerate(mgr):
+            tasks.append({
+                'id': i,
+                'name': ext.name
+            })
+
+        return {'tasks': tasks}
 
     @index.when(method='PUT')
     def index_PUT(self, id):

@@ -20,9 +20,9 @@ setup(
     include_package_data=True,
     packages=find_packages(exclude=['ez_setup']),
     entry_points={
-        'network_verify_service.tasks': [
-            'check_dhcp = network_verify_service.tasks.check_dhcp:DHCPCheckTask',
-            'check_multicast = network_verify_service.tasks.check_multicast:MulticastCheckTask',
-        ],
+        'tasks': [
+            'check_dhcp = tasks.check_dhcp:DHCPCheckTask',
+            'check_multicast = tasks.check_multicast:MulticastCheckTask',
+        ]
     }
 )

@@ -3,7 +3,7 @@ from tasks import base
 
 class MulticastCheckTask(base.NetworkCheckTask):
 
-    def run():
+    def run(self, *args, **kwargs):
         """
         Execute multicast check on remote server
         """
