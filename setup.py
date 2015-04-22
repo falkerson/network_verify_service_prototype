@@ -18,5 +18,11 @@ setup(
     test_suite='network_verify_service',
     zip_safe=False,
     include_package_data=True,
-    packages=find_packages(exclude=['ez_setup'])
+    packages=find_packages(exclude=['ez_setup']),
+    entry_points={
+        'network_verify_service.tasks': [
+            'check_dhcp = network_verify_service.tasks.check_dhcp:DHCPCheckTask',
+            'check_multicast = network_verify_service.tasks.check_multicast:MulticastCheckTask',
+        ],
+    }
 )

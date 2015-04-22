@@ -1,22 +1,33 @@
-from pecan import expose, redirect
+from pecan import abort, expose, redirect
 from webob.exc import status_map
+
+
+class TaskController(object):
+
+    @expose(generic=True, template='json')
+    def index(self):
+        return {
+            'tasks': [
+                {
+                    'id': '1',
+                    'name': 'check_multicast'
+                },
+                {
+                    'id': '2',
+                    'name': 'check_dhcp'
+                },
+                {
+                    'id': '3',
+                    'name': 'check_connectivity'
+                }
+            ]
+        }
+
+    @index.when(method='PUT')
+    def index_PUT(self, id):
+        return 'task {0} is running'.format(id)
 
 
 class RootController(object):
 
-    @expose(generic=True, template='index.html')
-    def index(self):
-        return dict()
-
-    @index.when(method='POST')
-    def index_post(self, q):
-        redirect('http://pecan.readthedocs.org/en/latest/search.html?q=%s' % q)
-
-    @expose('error.html')
-    def error(self, status):
-        try:
-            status = int(status)
-        except ValueError:  # pragma: no cover
-            status = 500
-        message = getattr(status_map.get(status), 'explanation', '')
-        return dict(status=status, message=message)
+    tasks = TaskController()

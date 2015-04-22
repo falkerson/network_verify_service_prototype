@@ -1,0 +1,5 @@
+*.pyc
+
+# vim swap files
+.*.swp
+network_verify_service.egg-info
